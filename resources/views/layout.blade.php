@@ -10,7 +10,7 @@
     @vite(['resources/js/app.js', 'resources/css/app.css', 'resources/sass/app.scss'])
 </head>
 <body>
-    <div class="grid grid-cols-10 p-5 bg-gradient-to-br from-green-700 via-green-500 to-yellow-400 min-h-screen">
+    <div class="grid grid-cols-10 p-5 bg-gradient-to-br from-green-400 via-green-200 to-yellow-300 min-h-screen">
         <div class="col-span-3">
             <img src="./Elfaita Project Logo (Mix & Landscape).png" alt="" class="h-20">
         </div>
