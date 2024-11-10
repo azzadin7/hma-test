@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <link rel="shortcut icon" href="./Elfaita Project Logo (White & Square).png" type="image/x-icon">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @vite(['resources/js/app.js', 'resources/css/app.css', 'resources/sass/app.scss'])
 </head>
 <body>
@@ -36,6 +37,16 @@
                         <button type="submit" class="btn btn-primary py-2 px-5 float-right">LOGIN</button>
                     </div>
                 </div>
+                @if(!session('success'))
+                    <script>
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Gagal',
+                            text: 'Email atau Password salah, silakan coba kembali',
+                            background: '#fffff'
+                        })
+                    </script>
+                @endif
             </form>
         </div>
     </div>

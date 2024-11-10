@@ -34,8 +34,18 @@ class UserController extends Controller
 
     }
 
+    public function searchUser(Request $request)
+    {   
+        $query = $request->input('query');
+
+        $result = User::where('name', 'LIKE ', '%' . $query . '%')->orWhere('email', 'LIKE', '%' . $query . '%')->get();
+
+        return response()->json($result);
+    }
+
     public function addUserForm()
     {
+        $title = 'Tambah Pengguna';
         $menus = Menu::orderBy('menu_order', 'asc')->get();
 
         if (!Auth::check()) {
@@ -44,11 +54,12 @@ class UserController extends Controller
 
         $name = Auth::user()->name;
 
-        return view('userManagement.form', compact('menus', 'name'));
+        return view('userManagement.form', compact('menus', 'name', 'title'));
     }
 
     public function updateUserForm($id)
     {
+        $title = 'Edit Pengguna';
         $user = User::findOrFail($id);
         $menus = Menu::orderBy('menu_order', 'asc')->get();
 
@@ -58,7 +69,7 @@ class UserController extends Controller
 
         $name = Auth::user()->name;
 
-        return view('userManagement.form', compact('user', 'menus', 'name'));
+        return view('userManagement.form', compact('user', 'menus', 'name', 'title'));
     }
 
 
@@ -79,7 +90,8 @@ class UserController extends Controller
         User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make($request->password)
+            'password' => Hash::make($request->password),
+            'status' => 0
         ]);
 
         // // Insert new user into database using Eloquent
@@ -101,6 +113,8 @@ class UserController extends Controller
             'email' => 'required|string|email|max:100|unique:users',
             'password' => 'required|string|min:8'
         ]);
+
+        return response()->json(['message' => 'Hello Bro']);
 
         $user = User::findOrFail($userId);
         // Insert new user into database using Eloquent

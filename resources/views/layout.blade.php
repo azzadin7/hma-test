@@ -6,13 +6,15 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Dashboard Page</title>
     <link rel="shortcut icon" href="./Elfaita Project Logo (White & Square).png" type="image/x-icon">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @vite(['resources/js/app.js', 'resources/css/app.css', 'resources/sass/app.scss'])
 </head>
 <body>
-    <div class="grid grid-cols-10 p-5 bg-gradient-to-br from-green-400 via-green-200 to-yellow-300 min-h-screen">
+    {{-- <div class="grid grid-cols-10 p-5 bg-gradient-to-br from-green-400 via-green-200 to-yellow-300 min-h-screen"> --}}
+    <div class="grid grid-cols-10 p-5 bg-gradient-to-br from-red-500 via-orange-200 to-yellow-300 min-h-screen">
         <div class="col-span-3">
-            <img src="./Elfaita Project Logo (Mix & Landscape).png" alt="" class="h-20">
+            <img src="http://localhost:8000/Elfaita Project Logo (Mix & Landscape).png" alt="" class="h-20">
         </div>
         <div class="col-span-7">
             <div class="float-right mt-4 font-montserrat text-xl">
@@ -21,34 +23,13 @@
         </div>
 
         <div class="col-span-3 mt-10">
-            @yield('navbar')
+            @include('navbar')
         </div>
         <div class="col-span-7 mt-10 pt-3 text-lg">
-
             @yield('content')
-
         </div>
     </div>
 
-    <script>
-        function confirmDelete(id)
-        {
-            Swal.fire({
-                title: 'Konfirmasi Hapus User',
-                text: 'Apakah anda yakin untuk menghapus user berikut?',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Hapus',
-                cancelButtonText: 'Batal'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // Submit deletion form request
-                    document.getElementById('delete-form-' + id).submit();
-                }
-            });
-        }
-    </script>
+    @include('scripts')
 </body>
 </html>

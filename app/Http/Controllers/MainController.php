@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Menu;
 use App\Models\User;
+use App\Models\File;
 use Illuminate\Support\Facades\Auth;
 
 class MainController extends Controller
@@ -37,4 +38,5 @@ class MainController extends Controller
 
         return view('fileupload', compact('menus', 'name'));
     }
+
 }
