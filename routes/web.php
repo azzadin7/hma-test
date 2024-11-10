@@ -18,6 +18,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('post.logout');
 Route::get('/dashboard', [MainController::class, 'index']);
 
 Route::get('/getusers', [UserController::class, 'getUsers'])->name('view.user');
+Route::get('/search', [UserController::class, 'searchUser'])->name('search.user');
 
 Route::get('/adduser', [UserController::class, 'addUserForm']);
 Route::get('/edituser/{user}', [UserController::class, 'updateUserForm']);
