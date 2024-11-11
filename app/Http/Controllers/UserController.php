@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Menu;
+use App\Models\Theme;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 
@@ -19,6 +20,7 @@ class UserController extends Controller
     {
         $menus = Menu::orderBy('menu_order', 'asc')->get();
         $users = User::all();
+        $theme = Theme::where('theme_status', 1)->first();
 
         if (!Auth::check()) {
             return redirect()->route('get.login');
@@ -26,7 +28,7 @@ class UserController extends Controller
 
         $name = Auth::user()->name;
 
-        return view('userManagement.list', compact('menus', 'users', 'name'));
+        return view('userManagement.list', compact('menus', 'users', 'name', 'theme'));
     }
 
     public function getUserById()
@@ -47,6 +49,7 @@ class UserController extends Controller
     {
         $title = 'Tambah Pengguna';
         $menus = Menu::orderBy('menu_order', 'asc')->get();
+        $theme = Theme::where('theme_status', 1)->first();
 
         if (!Auth::check()) {
             return redirect()->route('get.login');
@@ -54,7 +57,7 @@ class UserController extends Controller
 
         $name = Auth::user()->name;
 
-        return view('userManagement.form', compact('menus', 'name', 'title'));
+        return view('userManagement.form', compact('menus', 'name', 'title', 'theme'));
     }
 
     public function updateUserForm($id)
@@ -62,6 +65,7 @@ class UserController extends Controller
         $title = 'Edit Pengguna';
         $user = User::findOrFail($id);
         $menus = Menu::orderBy('menu_order', 'asc')->get();
+        $theme = Theme::where('theme_status', 1)->first();
 
         if (!Auth::check()) {
             return redirect()->route('get.login');
@@ -69,7 +73,7 @@ class UserController extends Controller
 
         $name = Auth::user()->name;
 
-        return view('userManagement.form', compact('user', 'menus', 'name', 'title'));
+        return view('userManagement.form', compact('user', 'menus', 'name', 'title', 'theme'));
     }
 
 

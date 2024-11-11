@@ -10,16 +10,20 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     @vite(['resources/js/app.js', 'resources/css/app.css', 'resources/sass/app.scss'])
 </head>
-<body>
-    {{-- <div class="grid grid-cols-10 p-5 bg-gradient-to-br from-green-400 via-green-200 to-yellow-300 min-h-screen"> --}}
-    <div class="grid grid-cols-10 p-5 bg-gradient-to-br from-red-500 via-orange-200 to-yellow-300 min-h-screen">
+<body>  
+    <div class="grid grid-cols-10 p-5 bg-gradient-to-br {{ $theme->theme_from }} {{ $theme->theme_via }} {{ $theme->theme_to }} min-h-screen">
         <div class="col-span-3">
             <img src="http://localhost:8000/Elfaita Project Logo (Mix & Landscape).png" alt="" class="h-20">
         </div>
-        <div class="col-span-7">
+        <div class="col-span-6 py-2">
             <div class="float-right mt-4 font-montserrat text-xl">
                 Selamat Datang, <span class="font-bold">{{ $name }}</span>
             </div>
+        </div>
+        <div class="col-span-1 mt-4 pl-5">
+            <a href="/config" class="text-decoration-none text-white">
+                <button class="bg-gray-400 ml-3 px-3 py-2 rounded-lg hover:bg-gray-600">Config</button>
+            </a>
         </div>
 
         <div class="col-span-3 mt-10">
