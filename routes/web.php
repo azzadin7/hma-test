@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\MenuController;
+use App\Http\Controllers\ConfigController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -27,5 +28,6 @@ Route::post('/adduser', [UserController::class, 'addUser'])->name('post.user');
 Route::delete('/user/{user}', [UserController::class, 'deleteUser'])->name('delete.user');
 Route::put('/user/{user}', [UserController::class, 'updateUser'])->name('update.user');
 
-Route::get('/config', [MainController::class, 'config']);
-Route::post('/config', [MainController::class, 'updateConfig']);
+Route::get('/config', [ConfigController::class, 'index'])->name('view.config');
+Route::patch('/logo', [ConfigController::class, 'updateLogo'])->name('update.logo');
+Route::patch('/theme/{theme}', [ConfigController::class, 'updateTheme'])->name('update.theme');

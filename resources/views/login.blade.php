@@ -37,7 +37,7 @@
                         <button type="submit" class="btn btn-primary py-2 px-5 float-right">LOGIN</button>
                     </div>
                 </div>
-                @if(!session('success'))
+                {{-- @if(!session('success'))
                     <script>
                         Swal.fire({
                             icon: 'error',
@@ -46,7 +46,7 @@
                             background: '#fffff'
                         })
                     </script>
-                @endif
+                @endif --}}
             </form>
         </div>
     </div>
