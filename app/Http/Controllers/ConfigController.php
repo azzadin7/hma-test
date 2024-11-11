@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Theme;
 use App\Models\Menu;
+use App\Models\File;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -16,6 +17,7 @@ class ConfigController extends Controller
         $menus = Menu::orderBy('menu_order', 'asc')->get();
         $colors = Theme::all();
         $theme = Theme::where('theme_status', 1)->first();
+        $logo = File::where('file_type', 'logo')->first();
 
         if(!Auth::check()){
             return redirect()->route('get.login');
@@ -23,7 +25,7 @@ class ConfigController extends Controller
 
         $name = Auth::user()->name;
 
-        return view('fileupload', compact('menus', 'name', 'colors', 'theme'));
+        return view('fileupload', compact('menus', 'name', 'colors', 'theme', 'logo'));
     }
 
     public function updateTheme(Theme $theme)
@@ -44,9 +46,22 @@ class ConfigController extends Controller
             'logo' => 'required|image|mimes:jpeg,jpg,png|max:2048'
         ]);
 
-        $logoName = time() . '.' . $request->logo->extension();
-        $request->logo->move(public_path('uploads/logos'), $logoName);
+        // $logo = File::where('file_type', 'logo')->first();
 
-        $logo = File::where('');
+        // if($logo->file_path){
+        //     Storage::delete('public/' . $logo->file_path);
+        // }
+
+        $logoName = time() . '.' . $request->file('file')->getClientOriginalExtension();
+        // $request->logo->storeAs('public', $logoName);
+
+        $path = $request->file('file')->storeAs('uploads', $filename);
+        
+        $logo = File::where('file_type', 'logo')
+                    ->update([
+                        'file_path' => $path
+                    ]);
+
+        return redirect()->back()->with('success', 'Logo berhasil diperbarui.');
     }
 }

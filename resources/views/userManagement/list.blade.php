@@ -43,31 +43,32 @@
     </div>
 
     <script>
-        
     $(document).ready(function() {
         $('#query').on('keyup', function() {
             var query = $(this).val();
 
-            if(query.length > 2) {
+            if(query.length >= 0) {
                 $.ajax({
                     url: "{{ route('search.user') }}",
+                    headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                     type: 'GET',
                     data: { query: query },
                     success: function(response) {
                         $('#listUser').html('');
-                        $.each(response, function(index, user) {
+                        $.each(response, function(index, result) {
+                            var deleteUrl = "{{ route('delete.user', '')}}/" + result.id;
                             $('#listUser').append(`
                                 <tr>
-                                    <td></td>
-                                    <td> user.name </td>
-                                    <td> user.email </td>
+                                    <td>${index+1}</td>
+                                    <td>${result.name}</td>
+                                    <td>${result.email}</td>
                                     <td>
                                         <div class="d-flex gap-2">
-                                            <a class="btn btn-warning mb-2" href="/edituser/{{ $user->id ?? $user->user_id }}">Edit</a>
-                                            <form id="delete-form-{{ $user->id }}" action="{{ route('delete.user', $user->id ?? $user->user_id)}}" method="POST">
+                                            <a class="btn btn-warning mb-2" href="/edituser/${result.id}">Edit</a>
+                                            <form id="delete-form-${result.id}" action="${deleteUrl}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
-                                                <a class="btn btn-danger" onclick="confirmDelete({{ $user->id ?? $user->user_id }})">Delete</a>
+                                                <a class="btn btn-danger" onclick="confirmDelete(${ result.id })">Delete</a>
                                                 @include('sweetalert.success')
                                             </form>
                                         </div>

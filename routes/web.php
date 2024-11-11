@@ -26,7 +26,7 @@ Route::get('/edituser/{user}', [UserController::class, 'updateUserForm']);
 
 Route::post('/adduser', [UserController::class, 'addUser'])->name('post.user');
 Route::delete('/user/{user}', [UserController::class, 'deleteUser'])->name('delete.user');
-Route::put('/user/{user}', [UserController::class, 'updateUser'])->name('update.user');
+Route::put('/user/{id}', [UserController::class, 'updateUser'])->name('update.user');
 
 Route::get('/config', [ConfigController::class, 'index'])->name('view.config');
 Route::patch('/logo', [ConfigController::class, 'updateLogo'])->name('update.logo');

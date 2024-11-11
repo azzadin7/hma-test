@@ -5,7 +5,7 @@
     <div class="pb-64">
         <form 
             @if (isset($user))
-                action="{{ route('update.user', $user->user_id ?? $user->id) }}"
+                action="{{ route('update.user', $user->id) }}"
             @else
                 action="{{ route('post.user') }}"
             @endif

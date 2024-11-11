@@ -6,6 +6,8 @@
         <p class="text-3xl font-bold mb-5">
             Style Configuration
         </p>
+
+        {{-- Table untuk Logo --}}
         <table class="mb-10">
             <tr>
                 <td><label for="" class="w-40 font-bold">Logo</label></td>
@@ -13,9 +15,10 @@
                     <img src="./Elfaita Project Logo (Mix & Landscape).png" alt="" class="h-10">
                 </td>
                 <td>
-                    <form action="" method="POST" enctype="multipart/form-data" class="text-sm">
+                    <form action="{{ route('update.logo') }}" method="POST" enctype="multipart/form-data" class="text-sm">
                         @csrf
-                        <input type="file" name="logo" class="pl-10">
+                        @method('PATCH')
+                        <input type="file" name="file" class="pl-10">
                         <button type="submit" class="btn btn-primary">Upload</button>
                     </form>
                 </td>
@@ -23,6 +26,7 @@
             </tr>
         </table>
 
+        {{-- Table untuk List Menu --}}
         <table>
             <tr class="font-bold">
                 <td class="w-40">List of Menu</td>
@@ -47,17 +51,21 @@
 
             </tr>
             @foreach ($colors as $color)
+        </table>
+
+        {{-- Table untuk Color Theme --}}
+        <table>
             <tr>
             @if ( $loop->iteration == 1)
-                <td><label for="" class="pb-3 font-bold">Color Theme</label></td>
+                <td class="w-40"><label for="" class="pb-3 font-bold">Color Theme</label></td>
             @else
-                <td></td>
+                <td class="w-40"></td>
             @endif
-                <td class="bg-gradient-to-br {{ $color->theme_from }} {{ $color->theme_via }} {{ $color->theme_to }} mx-5"></td>
-                <td class="pl-5 font-bold">
+                <td class="w-40 bg-gradient-to-br {{ $color->theme_from }} {{ $color->theme_via }} {{ $color->theme_to }} mx-5"></td>
+                <td class="w-40 pl-5 font-bold">
                     {{ $color->theme_name}}
                 </td>
-                <td>
+                <td class="w-40">
                     @if ($color->theme_status == 1)
                         <button class="btn btn-success">Active</button>
                     @else

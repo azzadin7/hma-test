@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Menu;
 use App\Models\Theme;
+use App\Models\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 
@@ -21,6 +22,7 @@ class UserController extends Controller
         $menus = Menu::orderBy('menu_order', 'asc')->get();
         $users = User::all();
         $theme = Theme::where('theme_status', 1)->first();
+        $logo = File::where('file_type', 'logo')->first();
 
         if (!Auth::check()) {
             return redirect()->route('get.login');
@@ -28,7 +30,7 @@ class UserController extends Controller
 
         $name = Auth::user()->name;
 
-        return view('userManagement.list', compact('menus', 'users', 'name', 'theme'));
+        return view('userManagement.list', compact('menus', 'users', 'name', 'theme', 'logo'));
     }
 
     public function getUserById()
@@ -40,7 +42,7 @@ class UserController extends Controller
     {   
         $query = $request->input('query');
 
-        $result = User::where('name', 'LIKE ', '%' . $query . '%')->orWhere('email', 'LIKE', '%' . $query . '%')->get();
+        $result = User::where('name', 'LIKE', '%' . $query . '%')->orWhere('email', 'LIKE', '%' . $query . '%')->get();
 
         return response()->json($result);
     }
@@ -50,6 +52,7 @@ class UserController extends Controller
         $title = 'Tambah Pengguna';
         $menus = Menu::orderBy('menu_order', 'asc')->get();
         $theme = Theme::where('theme_status', 1)->first();
+        $logo = File::where('file_type', 'logo')->first();
 
         if (!Auth::check()) {
             return redirect()->route('get.login');
@@ -57,7 +60,7 @@ class UserController extends Controller
 
         $name = Auth::user()->name;
 
-        return view('userManagement.form', compact('menus', 'name', 'title', 'theme'));
+        return view('userManagement.form', compact('menus', 'name', 'title', 'theme', 'logo'));
     }
 
     public function updateUserForm($id)
@@ -66,6 +69,7 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $menus = Menu::orderBy('menu_order', 'asc')->get();
         $theme = Theme::where('theme_status', 1)->first();
+        $logo = File::where('file_type', 'logo')->first();
 
         if (!Auth::check()) {
             return redirect()->route('get.login');
@@ -73,7 +77,7 @@ class UserController extends Controller
 
         $name = Auth::user()->name;
 
-        return view('userManagement.form', compact('user', 'menus', 'name', 'title', 'theme'));
+        return view('userManagement.form', compact('user', 'menus', 'name', 'title', 'theme', 'logo'));
     }
 
 
@@ -109,18 +113,23 @@ class UserController extends Controller
         return redirect()->route('view.user')->with('success', 'User has been added successfully!');
     }
 
-    public function updateUser(Request $request, $userId)
+    public function updateUser(Request $request, $id)
     {
         // Validate User Input
         $request->validate([
             'name' => 'required|string|max:100',
-            'email' => 'required|string|email|max:100|unique:users',
+            'email' => 'required|string|email|max:100',
             'password' => 'required|string|min:8'
         ]);
 
-        return response()->json(['message' => 'Hello Bro']);
+        // $user = User::find($id);
 
-        $user = User::findOrFail($userId);
+        // $user->name = $request->name;
+        // $user->email = $request->email;
+        // $user->password = Hash::make($request->password);
+        // $user->save();
+
+        $user = User::findOrFail($id);
         // Insert new user into database using Eloquent
         $user->update([
             'name' => $request->name,

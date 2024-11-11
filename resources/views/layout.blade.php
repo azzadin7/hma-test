@@ -12,8 +12,10 @@
 </head>
 <body>  
     <div class="grid grid-cols-10 p-5 bg-gradient-to-br {{ $theme->theme_from }} {{ $theme->theme_via }} {{ $theme->theme_to }} min-h-screen">
+    {{-- <div class="grid grid-cols-10 p-5 bg-gradient-to-br from-green-500 via-green-200 to-yellow-400 min-h-screen"> --}}
         <div class="col-span-3">
-            <img src="http://localhost:8000/Elfaita Project Logo (Mix & Landscape).png" alt="" class="h-20">
+            {{-- <img src="http://localhost:8000/Elfaita Project Logo (Mix & Landscape).png" alt="" class="h-20"> --}}
+            <img src="{{ Storage::url($logo->file_path) }}" alt="" class="h-20">
         </div>
         <div class="col-span-6 py-2">
             <div class="float-right mt-4 font-montserrat text-xl">
