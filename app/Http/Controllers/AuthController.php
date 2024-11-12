@@ -35,10 +35,7 @@ class AuthController extends Controller
             return redirect()->intended('/dashboard')->with('name', Auth::user()->name);
         }
 
-        return response()->json([
-            'error' => 'Email atau password salah! Silakan coba lagi.',
-            401
-        ]);
+        return redirect()->back()->with('failed','Email atau password salah! Silakan coba lagi.');
     }
 
     public function logout()

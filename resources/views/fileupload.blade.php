@@ -12,7 +12,7 @@
             <tr>
                 <td><label for="" class="w-40 font-bold">Logo</label></td>
                 <td>
-                    <img src="./Elfaita Project Logo (Mix & Landscape).png" alt="" class="h-10">
+                    <img src="{{ $logopath }}" alt="" class="h-10">
                 </td>
                 <td>
                     <form action="{{ route('update.logo') }}" method="POST" enctype="multipart/form-data" class="text-sm">

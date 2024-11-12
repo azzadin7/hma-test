@@ -18,6 +18,7 @@ class ConfigController extends Controller
         $colors = Theme::all();
         $theme = Theme::where('theme_status', 1)->first();
         $logo = File::where('file_type', 'logo')->first();
+        $logopath = 'uploads/' . $logo->file_path;
 
         if(!Auth::check()){
             return redirect()->route('get.login');
@@ -25,7 +26,7 @@ class ConfigController extends Controller
 
         $name = Auth::user()->name;
 
-        return view('fileupload', compact('menus', 'name', 'colors', 'theme', 'logo'));
+        return view('fileupload', compact('menus', 'name', 'colors', 'theme', 'logo', 'logopath'));
     }
 
     public function updateTheme(Theme $theme)
@@ -43,7 +44,7 @@ class ConfigController extends Controller
     public function updateLogo(Request $request)
     {   
         $request->validate([
-            'logo' => 'required|image|mimes:jpeg,jpg,png|max:2048'
+            'file' => 'required|mimes:jpeg,jpg,png|max:2048'
         ]);
 
         // $logo = File::where('file_type', 'logo')->first();
@@ -52,10 +53,11 @@ class ConfigController extends Controller
         //     Storage::delete('public/' . $logo->file_path);
         // }
 
-        $logoName = time() . '.' . $request->file('file')->getClientOriginalExtension();
+        $file = $request->file('file');
+        $logoName = time() . '-' . $file->getClientOriginalName();
         // $request->logo->storeAs('public', $logoName);
 
-        $path = $request->file('file')->storeAs('uploads', $filename);
+        $path = $file->storeAs('logos', $logoName);
         
         $logo = File::where('file_type', 'logo')
                     ->update([

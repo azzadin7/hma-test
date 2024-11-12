@@ -16,7 +16,7 @@
     {{-- <div class="grid grid-cols-10 p-5 bg-gradient-to-br from-blue-500 via-blue-200 to-yellow-400 min-h-screen"> --}}
     {{-- <div class="grid grid-cols-10 p-5 bg-gradient-to-br from-green-500 via-green-200 to-yellow-400 min-h-screen"> --}}
         <div class="col-span-3">
-            <img src="http://localhost:8000/Elfaita Project Logo (Mix & Landscape).png" alt="" class="h-20">
+            <img src="{{ $logopath }}" alt="" class="h-20">
             {{-- <img src="{{ Storage::url($logo->file_path) }}" alt="" class="h-20"> --}}
         </div>
         <div class="col-span-6 py-2">

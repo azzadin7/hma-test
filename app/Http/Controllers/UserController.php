@@ -23,6 +23,7 @@ class UserController extends Controller
         $users = User::all();
         $theme = Theme::where('theme_status', 1)->first();
         $logo = File::where('file_type', 'logo')->first();
+        $logopath = 'uploads/' . $logo->file_path;
 
         if (!Auth::check()) {
             return redirect()->route('get.login');
@@ -30,7 +31,7 @@ class UserController extends Controller
 
         $name = Auth::user()->name;
 
-        return view('userManagement.list', compact('menus', 'users', 'name', 'theme', 'logo'));
+        return view('userManagement.list', compact('menus', 'users', 'name', 'theme', 'logo', 'logopath'));
     }
 
     public function getUserById()
@@ -53,6 +54,7 @@ class UserController extends Controller
         $menus = Menu::orderBy('menu_order', 'asc')->get();
         $theme = Theme::where('theme_status', 1)->first();
         $logo = File::where('file_type', 'logo')->first();
+        $logopath = 'uploads/' . $logo->file_path;
 
         if (!Auth::check()) {
             return redirect()->route('get.login');
@@ -60,7 +62,7 @@ class UserController extends Controller
 
         $name = Auth::user()->name;
 
-        return view('userManagement.form', compact('menus', 'name', 'title', 'theme', 'logo'));
+        return view('userManagement.form', compact('menus', 'name', 'title', 'theme', 'logo', 'logopath'));
     }
 
     public function updateUserForm($id)
@@ -70,6 +72,7 @@ class UserController extends Controller
         $menus = Menu::orderBy('menu_order', 'asc')->get();
         $theme = Theme::where('theme_status', 1)->first();
         $logo = File::where('file_type', 'logo')->first();
+        $logopath = 'uploads/' . $logo->file_path;
 
         if (!Auth::check()) {
             return redirect()->route('get.login');
@@ -77,7 +80,7 @@ class UserController extends Controller
 
         $name = Auth::user()->name;
 
-        return view('userManagement.form', compact('user', 'menus', 'name', 'title', 'theme', 'logo'));
+        return view('userManagement.form', compact('user', 'menus', 'name', 'title', 'theme', 'logo', 'logopath'));
     }
 
 

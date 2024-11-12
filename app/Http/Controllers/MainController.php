@@ -19,6 +19,7 @@ class MainController extends Controller
         $countActiveUser = User::where('status', 1)->count();
         $theme = Theme::where('theme_status', 1)->first();
         $logo = File::where('file_type', 'logo')->first();
+        $logopath = 'uploads/' . $logo->file_path;
 
         if(!Auth::check()){
             return redirect()->route('get.login');
@@ -26,7 +27,7 @@ class MainController extends Controller
 
         $name = Auth::user()->name;
 
-        return view('dashboard', compact('menus', 'countTotalUser', 'countActiveUser', 'name', 'theme', 'logo'));
+        return view('dashboard', compact('menus', 'countTotalUser', 'countActiveUser', 'name', 'theme', 'logo', 'logopath'));
     }
 
 }
