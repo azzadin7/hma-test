@@ -12,6 +12,8 @@
 </head>
 <body>  
     <div class="grid grid-cols-10 p-5 bg-gradient-to-br {{ $theme->theme_from }} {{ $theme->theme_via }} {{ $theme->theme_to }} min-h-screen">
+    {{-- <div class="grid grid-cols-10 p-5 bg-gradient-to-br from-red-500 via-red-200 to-yellow-400 min-h-screen"> --}}
+    {{-- <div class="grid grid-cols-10 p-5 bg-gradient-to-br from-blue-500 via-blue-200 to-yellow-400 min-h-screen"> --}}
     {{-- <div class="grid grid-cols-10 p-5 bg-gradient-to-br from-green-500 via-green-200 to-yellow-400 min-h-screen"> --}}
         <div class="col-span-3">
             {{-- <img src="http://localhost:8000/Elfaita Project Logo (Mix & Landscape).png" alt="" class="h-20"> --}}
